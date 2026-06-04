@@ -38,21 +38,18 @@ def verify_webhook(
 # =========================
 # INCOMING WHATSAPP MESSAGES
 # =========================
+from fastapi.responses import PlainTextResponse
+
 @app.post("/webhook")
 async def webhook(request: Request):
 
-    data = await request.json()
+    try:
+        data = await request.json()
+        print("Incoming WhatsApp payload:")
+        print(data)
 
-    print("Incoming WhatsApp payload:")
-    print(data)
+    except Exception as e:
+        print("Empty or invalid JSON received:", e)
+        return PlainTextResponse("ok")
 
-    return {"status": "ok"}
-
-
-if __name__ == "__main__":
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True
-    )
+    return PlainTextResponse("ok")
