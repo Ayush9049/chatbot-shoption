@@ -79,3 +79,8 @@ def send_whatsapp_message(to, message):
     response = requests.post(url, headers=headers, json=payload)
 
     print("WhatsApp response:", response.status_code, response.text)
+
+    @app.get("/test-send")
+    def test_send():
+       send_whatsapp_message("91XXXXXXXXXX", "Hello 👋 this is your bot")
+       return {"status": "sent"}
