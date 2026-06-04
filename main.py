@@ -9,7 +9,6 @@ VERIFY_TOKEN = "farmer_bot_123"
 @app.get("/webhook")
 def verify_webhook(request: Request):
 
-    # Read query params exactly as Meta sends them
     params = request.query_params
 
     mode = params.get("hub.mode")
@@ -21,7 +20,7 @@ def verify_webhook(request: Request):
     print("CHALLENGE:", challenge)
 
     if mode == "subscribe" and token == VERIFY_TOKEN:
-        return PlainTextResponse(challenge)
+        return PlainTextResponse(content=challenge)
 
     return PlainTextResponse("verification_failed")
 
