@@ -42,3 +42,7 @@ async def webhook(request: Request):
         return PlainTextResponse("ok")
 
     return PlainTextResponse("ok")
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello, World!"}
